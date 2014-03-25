@@ -1,0 +1,88 @@
+body#index
+{
+	font-size:16px;
+	/*background-image: url('../../static/images/darkblue.jpg');*/
+    background-color: #FFFFFF;
+	background-repeat:repeat;
+	color: #34495E;
+	align: center;
+	overflow: auto;
+    top:-325px;
+}
+
+li.list{
+    list-style-type:none;
+    margin:0;
+}
+
+ul.sidebar{
+    list-style-type:none;
+    position:absolute;
+    top:335px;
+    left:70px;
+    background-color:#BFD9DA;
+    width:115px;
+    padding: 5px;
+    margin-top: 5px;
+    border-radius:10px;
+    -webkit-border-radius:10px;
+    -moz-border-radius:10px;
+}
+
+#container {
+    text-align: center;
+}
+a, figure {
+    display: inline-block;
+}
+figcaption {
+    text-align:center;
+    font-size:20px;
+    margin: 10px 0 5px 0;
+    font-family: sans-serif;
+    font-weight: bold;
+    color: #000000;
+}
+
+#votecount {
+    text-align:center;
+    font-size:14px;
+    margin: 10px 0 5px 0;
+    font-family: sans-serif;
+    font-weight: normal;
+    color: blue;
+}
+
+img.ex1:hover {
+    transform: scale(1.01);
+    -ms-transform: scale(1.01);
+    -webkit-transform: scale(1.01);
+    -moz-transform: scale(1.01);
+    -o-transform: scale(1.01);
+}
+img {
+    transition: transform 0.2s;
+    margin: 0px 30px 0px 30px;
+    /*margin-left:10px; 
+	margin-right:10px;*/
+    -webkit-transition: -webkit-transform 0.2s;
+    -moz-transition: -moz-transform 0.2s;
+    -o-transition: -o-transform 0.2s;
+    margin-bottom:5px;
+}
+
+h1{
+    font-family: Euphemia;
+    text-align: center;
+}
+
+#header
+{
+    color: #34495E;
+}
+
+a.fixed{
+    position:fixed;
+    top:550px;
+    right:5px;
+}

@@ -1,0 +1,45 @@
+{{extend 'layout.html'}}	
+{{#=auth.user.id}}
+<html>
+<link rel="stylesheet" href="{{=URL('static','css/style.css')}}">
+<head>
+	<title> SlugArt </title>
+</head>
+
+<div class="pull-right">
+{{=form}}
+</div>
+
+<div id = "btn">
+{{=upload}}
+</div>
+    <!--
+<ul class = "sidebar">
+<li> <a href="{{=URL('index')}}">Home</a></li>
+<li> <a href="{{=URL('default','youruploads')}}">Your uploads</a></li>
+<li> <a href="default.asp">Your favorites</a></li>
+<li> <a href="default.asp">Most Favorited</a></li>
+<li> <a href="{{=URL('default','about_us')}}">About Slug Art</a></li>
+<br> 
+<b>Categories</b>
+<li> <a href= "{{=URL ('default','digitalart')}}">Digital Art</a></li>
+<li> <a href= "{{=URL ('default','traditional')}}">Traditional Art</a></li>
+<li> <a href= "{{=URL ('default','photography')}}">Photography</a></li>
+<li> <a href= "{{=URL ('default','anime')}}">Anime and Manga</a></li>
+<li> <a href= "{{=URL ('default','cartoons')}}"> Cartoons </a> </li>
+<li> <a href= "{{=URL ('default','scraps')}}"> Scraps</a> </li>
+<li> <a href= "{{=URL ('default','fanart')}}"> Fan Art </a> </li>
+</ul>-->
+
+<body id="index">
+<h2>Recent Uploads</h2>
+<div >
+{{for gallery in images:}}
+<a href="{{=URL('default', 'show', args=gallery.id)}}">
+	    <figcaption> {{=((gallery.title))}}</figcaption>
+		<img class = "ex1" width="200px" height = "200px" src="{{=URL('download', args=gallery.file)}}" />
+{{pass}}
+</a>
+</div>
+</body>
+</html>

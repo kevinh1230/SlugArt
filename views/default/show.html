@@ -1,0 +1,118 @@
+<html>
+{{extend 'layout.html'}}
+<link rel="stylesheet" href="{{=URL('static','css/showstyle.css')}}">
+
+<b> Uploader: </b> {{=image.uploader}}
+
+<script>
+$(document).ready(function() {
+  $( "body" ).on( "click", "span.increment", function(e) { //if up arrow is clicked
+    var likes = $(this).parent().children('div.id').html(); //get id of image
+    var msg = "msg=" + JSON.stringify(likes) //get likes from datatable
+    $.post('{{=upvote}}',msg,function(jdata){ //send to server
+      var data = JSON.parse(jdata); 
+      votedup(); //change css
+      downblack(); //change css
+      $(e.target).parent().children('div.count').html(data["result"]) //change vote count to incremented count
+    })
+  });
+  $( "body" ).on( "click", "span.decrement", function(e) {
+    var likes = $(this).parent().children('div.id').html();
+    var msg = "msg=" + JSON.stringify(likes)
+    $.post('{{=downvote}}',msg,function(jdata){
+      var data = JSON.parse(jdata);
+      voteddown();
+      upblack();
+      $(e.target).parent().children('div.count').html(data["result"])
+    })
+  });
+  //functions for if user isnt logged in, redirect to login
+  $( "body" ).on( "click", "span.nologincrement", function(e) {
+      window.location.replace("https://slugart.s3an.co/SlugArt/default/user/login")
+    })
+  $( "body" ).on( "click", "span.nologdecrement", function(e) {
+      window.location.replace("https://slugart.s3an.co/SlugArt/default/user/login")
+    })
+  });
+
+function votedup(){
+      $('#arrow-up').css("border-bottom", "30px solid #488214");
+  }
+function voteddown(){
+      $('#arrow-down').css("border-top", "30px solid #990000");
+  }
+function upblack(){
+      $('#arrow-up').css("border-bottom", "30px solid #000");
+  }
+function downblack(){
+      $('#arrow-down').css("border-top", "30px solid #000");
+  }
+ </script>
+
+<body id = "show">
+<h2>{{=image.title}}</h2>
+<center>
+<img style="width:400px; height:400px; vertical-align:top"
+     src="{{=URL('download', args=image.file)}}" /><br/>
+     <script src="https://checkout.stripe.com/checkout.js"></script>
+    <center>Price: ${{=image.price}}</center>
+    <button id="customButton">Buy Now</button>
+
+<script>
+  //stripe api
+  var handler = StripeCheckout.configure({
+    key: 'pk_test_Vc5umZr4Ey0yjCVCp9Ct7OQA',
+    image: '{{=URL('download', args=image.file)}}',
+    token: function(token, args) {
+      // Use the token to create the charge with a server-side script.
+      window.location = "{{=URL('default', 'purchase_confirmation')}}";
+    }
+  });
+
+  document.getElementById('customButton').addEventListener('click', function(e) {
+    // Open Checkout with further options
+    handler.open({
+        name: '{{=image.title}}',
+        description: '{{=image.description}}',
+        amount: {{=image.price}}*100
+    });
+    e.preventDefault();
+  });
+</script>
+</center>
+
+<b> Category: </b>{{=image.tag}}
+
+{{if auth.user:}}
+<div class = "plusminusbutton">
+  <span class = "increment" id = "arrow-up" ></span></br></br>
+  <div class = "id">{{=image.id}}</div>
+  </br><div class = "count">{{=image.likes}}</div></br></br>
+  <span class = "decrement" id = "arrow-down"></span>
+</div>
+</br>
+{{else:}}
+<div class = "plusminusbutton">
+  <span class = "nologincrement" id = "arrow-up" ></span></br></br>
+  <div class = "id">{{=image.id}}</div>
+  </br><div class = "count">{{=image.likes}}</div></br></br>
+  <span class = "nologdecrement" id = "arrow-down"></span>
+</div>
+</br>
+{{pass}}
+
+
+<div id = "comments" >
+{{if len(comments):}}
+  <h3>Comments</h3><br /><p>
+  {{for post in comments:}}
+    <p><b>{{=post.author}}</b> <div  id = "triangle-isosceles">{{=post.body}}</div></p>
+  {{pass}}</p>
+{{else:}}
+  <h3>No comments posted yet</h3>
+{{pass}}
+<h4>Post a comment</h4>
+{{=form}}
+</div>
+</body>
+</html>

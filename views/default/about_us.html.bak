@@ -1,0 +1,9 @@
+{{extend 'layout.html'}}    
+<html>
+<link rel="stylesheet" href="{{=URL('static','css/style.css')}}">
+
+<body id="index">
+    <h2><u>About <i>SlugArt</i></u></h2>
+
+</body>
+</html>

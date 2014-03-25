@@ -1,0 +1,18 @@
+{{extend 'layout.html'}}	
+<html>
+<link rel="stylesheet" href="{{=URL('static','css/style.css')}}">
+
+<body id="index">
+<h2>Photography</h2>
+<center>
+<div >
+{{for gallery in images:}}
+<a href="{{=URL('default', 'show', args=gallery.id)}}">
+	    <figcaption> {{=((gallery.title))}}</figcaption>
+		<img class = "ex1" width="200px" height = "200px" src="{{=URL('download', args=gallery.file)}}" />
+{{pass}}
+</a>
+</div>
+</center>
+</body>
+</html>
